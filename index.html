@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>VERIFACE - Restore Trust in Digital Media</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#136dec",
+                        "primary-dark": "#0c4fb0",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#0f1115", // Darker charcoal for main bg
+                        "card-dark": "#161b22",       // Slightly lighter for cards
+                        "border-dark": "#233348",     // Border color
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "sans": ["Space Grotesk", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        'neon': '0 0 10px rgba(19, 109, 236, 0.5), 0 0 20px rgba(19, 109, 236, 0.3)',
+                        'neon-hover': '0 0 15px rgba(19, 109, 236, 0.7), 0 0 30px rgba(19, 109, 236, 0.5)',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: "Space Grotesk", sans-serif;
+        }
+
+        .mesh-gradient {
+            background-color: #0f1115;
+            background-image:
+                radial-gradient(at 0% 0%, hsla(215, 98%, 61%, 0.15) 0px, transparent 50%),
+                radial-gradient(at 98% 1%, hsla(215, 98%, 61%, 0.15) 0px, transparent 50%);
+        }
+
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, transparent, #136dec, transparent);
+            box-shadow: 0 0 10px #136dec;
+            animation: scan 3s linear infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes scan {
+            0% {
+                top: 0;
+            }
+
+            100% {
+                top: 100%;
+            }
+        }
+
+        .glass-nav {
+            background: rgba(15, 17, 21, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* Custom scrollbar for dark theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f1115;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #233348;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #136dec;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white min-h-screen flex flex-col">
+    <!-- Top Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-50 border-b border-border-dark glass-nav">
+        <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="text-primary">
+                        <span class="material-symbols-outlined text-3xl">verified_user</span>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight text-white">VERIFACE</span>
+                </div>
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center gap-8">
+                    <a class="text-sm font-medium text-gray-300 hover:text-primary transition-colors"
+                        href="#">Features</a>
+                    <a class="text-sm font-medium text-gray-300 hover:text-primary transition-colors"
+                        href="#">Solutions</a>
+                    <a class="text-sm font-medium text-gray-300 hover:text-primary transition-colors"
+                        href="#">Pricing</a>
+                    <a class="text-sm font-medium text-gray-300 hover:text-primary transition-colors"
+                        href="#">Resources</a>
+                </nav>
+                <!-- Actions -->
+                <div class="flex items-center gap-4">
+                    <a href="p5.html"
+                        class="hidden sm:block text-sm font-bold text-gray-300 hover:text-white transition-colors">Login</a>
+                    <a href="p1.html"
+                        class="bg-primary hover:bg-primary-dark text-white text-sm font-bold py-2 px-5 rounded-lg transition-all shadow-neon hover:shadow-neon-hover flex items-center gap-2">
+                        <span>Get Started</span>
+                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="flex-grow pt-16">
+        <!-- Hero Section -->
+        <section
+            class="relative overflow-hidden mesh-gradient min-h-[600px] flex items-center justify-center py-20 lg:py-32">
+            <!-- Decorative grid background -->
+            <div class="absolute inset-0 z-0 opacity-[0.03]"
+                style="background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 40px 40px;">
+            </div>
+            <div class="container mx-auto px-4 relative z-10 flex flex-col items-center text-center">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase tracking-wider mb-8 animate-fade-in-up">
+                    <span class="relative flex h-2 w-2">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                    </span>
+                    AI-Powered Security v2.0 Live
+                </div>
+                <h1
+                    class="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white mb-6 max-w-4xl leading-[1.1]">
+                    Restore Trust in <br />
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-300">Digital
+                        Media</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl font-light">
+                    The world's most advanced AI-powered deepfake detection and digital identity verification platform.
+                    Secure your reality today.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 w-full justify-center">
+                    <a href="p1.html"
+                        class="flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white text-base font-bold py-3 px-8 rounded-lg shadow-neon hover:shadow-neon-hover transition-all w-full sm:w-auto">
+                        <span class="material-symbols-outlined">center_focus_weak</span>
+                        <span>Check Media</span>
+                    </a>
+                    <a href="p2.html"
+                        class="flex items-center justify-center gap-2 bg-transparent border border-gray-600 hover:border-white text-white text-base font-bold py-3 px-8 rounded-lg hover:bg-white/5 transition-all w-full sm:w-auto">
+                        <span class="material-symbols-outlined">verified</span>
+                        <span>Get Verified</span>
+                    </a>
+                </div>
+                <!-- Abstract Visual Hook -->
+                <div
+                    class="mt-16 w-full max-w-4xl mx-auto relative rounded-xl overflow-hidden border border-border-dark shadow-2xl bg-card-dark aspect-[16/9] md:aspect-[21/9] group">
+                    <div class="scan-line z-20"></div>
+                    <img alt="Digital wireframe mesh representing facial recognition technology"
+                        class="w-full h-full object-cover opacity-60 mix-blend-overlay"
+                        data-alt="Digital wireframe mesh representing facial recognition technology"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiGMNaH0xjK7k2OxXX8pxggmu05M5iFYfF7OD7_9NLtNrd6iWUIno1rv4dCYva32N_JCxt7SJsBo9iShr8fWcgE7Eh3HXrrYgSUaanMZBG4FGsS7faZEcmqN3AoE3PRLQQ86Xv5Vax-H7H3AIQggIV-KDqhafvc4ppr1luvPaLbi7f7_iAYhvdqJZvdC92n15yxzWcYgaTSKwMTiKb0Fk2jxpkea5NHvrtGTLSiLMes4ZUf9zDMh-zFpvq6yPsWJPgTZAdQ5cIsbc6" />
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent z-10">
+                    </div>
+                    <!-- Floating UI elements inside the image -->
+                    <div class="absolute bottom-6 left-6 z-20 flex gap-4">
+                        <div
+                            class="bg-black/80 backdrop-blur border border-primary/30 p-3 rounded-lg flex items-center gap-3">
+                            <div class="h-2 w-2 rounded-full bg-green-500"></div>
+                            <div>
+                                <div class="text-[10px] text-gray-400 uppercase">Analysis Status</div>
+                                <div class="text-xs font-mono text-white">AUTHENTICATED</div>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-black/80 backdrop-blur border border-primary/30 p-3 rounded-lg flex items-center gap-3 hidden sm:flex">
+                            <span class="material-symbols-outlined text-primary text-sm">fingerprint</span>
+                            <div>
+                                <div class="text-[10px] text-gray-400 uppercase">Confidence Score</div>
+                                <div class="text-xs font-mono text-white">99.98%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Stats Section -->
+        <section class="border-y border-border-dark bg-card-dark py-8 relative z-20">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div class="text-center md:text-left border-r border-border-dark/50 last:border-0 md:pl-4">
+                        <p class="text-gray-400 text-sm font-medium mb-1">Media Scanned</p>
+                        <p class="text-3xl md:text-4xl font-bold text-white tracking-tight">5M+</p>
+                    </div>
+                    <div class="text-center md:text-left border-r border-border-dark/50 last:border-0 md:pl-4">
+                        <p class="text-gray-400 text-sm font-medium mb-1">Accuracy Rate</p>
+                        <p class="text-3xl md:text-4xl font-bold text-white tracking-tight text-primary">99.8%</p>
+                    </div>
+                    <div class="text-center md:text-left border-r border-border-dark/50 last:border-0 md:pl-4">
+                        <p class="text-gray-400 text-sm font-medium mb-1">Identities Secured</p>
+                        <p class="text-3xl md:text-4xl font-bold text-white tracking-tight">150k+</p>
+                    </div>
+                    <div class="text-center md:text-left md:pl-4">
+                        <p class="text-gray-400 text-sm font-medium mb-1">Threats Blocked</p>
+                        <p class="text-3xl md:text-4xl font-bold text-white tracking-tight">1.2M</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Features Section -->
+        <section class="py-24 bg-background-dark relative">
+            <div class="container mx-auto px-4">
+                <div class="mb-16 md:flex md:items-end md:justify-between">
+                    <div class="max-w-2xl">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Advanced Protection Suite</h2>
+                        <p class="text-gray-400 text-lg">Our proprietary AI algorithms analyze digital content
+                            pixel-by-pixel to ensure authenticity and protect your digital footprint.</p>
+                    </div>
+                    <a class="hidden md:flex items-center text-primary font-bold hover:text-white transition-colors mt-4 md:mt-0 group"
+                        href="#">
+                        View all features
+                        <span
+                            class="material-symbols-outlined ml-2 group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
+                    </a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Feature 1 -->
+                    <div
+                        class="group relative bg-card-dark rounded-xl p-8 border border-border-dark hover:border-primary/50 transition-all duration-300 hover:shadow-neon hover:-translate-y-1">
+                        <div
+                            class="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+                            <span
+                                class="material-symbols-outlined text-primary text-3xl group-hover:text-white">visibility</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Deepfake Detection</h3>
+                        <p class="text-gray-400 leading-relaxed mb-6">Real-time analysis of video and audio manipulation
+                            using forensic AI trained on millions of synthetic media samples.</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center text-sm text-gray-500">
+                                <span
+                                    class="material-symbols-outlined text-primary text-[16px] mr-2">check_circle</span>
+                                Pixel-level analysis
+                            </li>
+                            <li class="flex items-center text-sm text-gray-500">
+                                <span
+                                    class="material-symbols-outlined text-primary text-[16px] mr-2">check_circle</span>
+                                Audio spectral verification
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div
+                        class="group relative bg-card-dark rounded-xl p-8 border border-border-dark hover:border-primary/50 transition-all duration-300 hover:shadow-neon hover:-translate-y-1">
+                        <div
+                            class="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+                            <span
+                                class="material-symbols-outlined text-primary text-3xl group-hover:text-white">fingerprint</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Digital ID</h3>
+                        <p class="text-gray-400 leading-relaxed mb-6">Secure your likeness on the blockchain with
+                            verified digital credentials that travel with your content across the web.</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center text-sm text-gray-500">
+                                <span
+                                    class="material-symbols-outlined text-primary text-[16px] mr-2">check_circle</span>
+                                Blockchain immutability
+                            </li>
+                            <li class="flex items-center text-sm text-gray-500">
+                                <span
+                                    class="material-symbols-outlined text-primary text-[16px] mr-2">check_circle</span>
+                                Self-sovereign identity
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div
+                        class="group relative bg-card-dark rounded-xl p-8 border border-border-dark hover:border-primary/50 transition-all duration-300 hover:shadow-neon hover:-translate-y-1">
+                        <div
+                            class="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+                            <span
+                                class="material-symbols-outlined text-primary text-3xl group-hover:text-white">gpp_maybe</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Misuse Reporting</h3>
+                        <p class="text-gray-400 leading-relaxed mb-6">Instantly flag and report unauthorized use of your
+                            identity across major social platforms with one-click takedown requests.</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center text-sm text-gray-500">
+                                <span
+                                    class="material-symbols-outlined text-primary text-[16px] mr-2">check_circle</span>
+                                Cross-platform monitoring
+                            </li>
+                            <li class="flex items-center text-sm text-gray-500">
+                                <span
+                                    class="material-symbols-outlined text-primary text-[16px] mr-2">check_circle</span>
+                                Automated legal notices
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-8 text-center md:hidden">
+                    <a class="inline-flex items-center text-primary font-bold hover:text-white transition-colors"
+                        href="#">
+                        View all features
+                        <span class="material-symbols-outlined ml-2">arrow_right_alt</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- Trust Section -->
+        <section class="py-20 border-t border-border-dark bg-card-dark">
+            <div class="container mx-auto px-4 text-center">
+                <p class="text-gray-500 text-sm font-bold uppercase tracking-widest mb-10">Trusted by Security Leaders
+                    Globally</p>
+                <div class="flex flex-wrap justify-center items-center gap-12 md:gap-20 opacity-60 grayscale">
+                    <!-- Using FontAwesome icons as placeholders for logos, rendered via text for simplicity -->
+                    <div class="text-2xl font-bold text-white flex items-center gap-2">
+                        <span class="material-symbols-outlined">security</span> CYBERWARD
+                    </div>
+                    <div class="text-2xl font-bold text-white flex items-center gap-2">
+                        <span class="material-symbols-outlined">lock</span> SecureNet
+                    </div>
+                    <div class="text-2xl font-bold text-white flex items-center gap-2">
+                        <span class="material-symbols-outlined">shield</span> AEGIS
+                    </div>
+                    <div class="text-2xl font-bold text-white flex items-center gap-2">
+                        <span class="material-symbols-outlined">admin_panel_settings</span> DEFENSE.IO
+                    </div>
+                    <div class="text-2xl font-bold text-white flex items-center gap-2">
+                        <span class="material-symbols-outlined">policy</span> VerifyGov
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- CTA Section -->
+        <section class="py-24 relative overflow-hidden">
+            <!-- Background gradient -->
+            <div class="absolute inset-0 bg-primary/5"></div>
+            <div class="absolute bottom-0 right-0 w-1/3 h-full bg-gradient-to-l from-primary/10 to-transparent"></div>
+            <div class="container mx-auto px-4 relative z-10">
+                <div
+                    class="max-w-4xl mx-auto bg-card-dark border border-border-dark rounded-2xl p-8 md:p-12 text-center shadow-2xl relative overflow-hidden">
+                    <!-- Glow effect -->
+                    <div
+                        class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent shadow-[0_0_20px_rgba(19,109,236,0.5)]">
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Ready to secure your digital presence?
+                    </h2>
+                    <p class="text-gray-400 text-lg mb-10 max-w-2xl mx-auto">Join thousands of public figures,
+                        journalists, and creators who trust Veriface to protect their identity.</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button
+                            class="bg-primary hover:bg-primary-dark text-white text-base font-bold py-3 px-8 rounded-lg shadow-neon hover:shadow-neon-hover transition-all">
+                            Get Started for Free
+                        </button>
+                        <button
+                            class="bg-transparent border border-gray-600 hover:border-white text-white text-base font-bold py-3 px-8 rounded-lg transition-all hover:bg-white/5">
+                            Contact Sales
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-background-dark border-t border-border-dark pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
+                <div class="col-span-2 lg:col-span-2 pr-8">
+                    <div class="flex items-center gap-2 mb-6">
+                        <span class="material-symbols-outlined text-primary text-2xl">verified_user</span>
+                        <span class="text-xl font-bold text-white">VERIFACE</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6 max-w-sm">
+                        Veriface is the leading platform for digital identity verification and deepfake detection,
+                        empowering individuals and organizations to restore trust in media.
+                    </p>
+                    <div class="flex gap-4">
+                        <a class="text-gray-400 hover:text-primary transition-colors" href="#">
+                            <!-- Social Icon Placeholder -->
+                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+                                <path
+                                    d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84">
+                                </path>
+                            </svg>
+                        </a>
+                        <a class="text-gray-400 hover:text-primary transition-colors" href="#">
+                            <!-- Social Icon Placeholder -->
+                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+                                <path clip-rule="evenodd"
+                                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                                    fill-rule="evenodd"></path>
+                            </svg>
+                        </a>
+                        <a class="text-gray-400 hover:text-primary transition-colors" href="#">
+                            <!-- Social Icon Placeholder -->
+                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+                                <path clip-rule="evenodd"
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"
+                                    fill-rule="evenodd"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-4">Platform</h3>
+                    <ul class="space-y-3">
+                        <li><a class="text-gray-400 hover:text-white text-sm transition-colors" href="#">Features</a>
+                        </li>
+                        <li><a class="text-gray-400 hover:text-white text-sm transition-colors"
+                                href="#">Integrations</a></li>
+                        <li><a class="text-gray-400 hover:text-white text-sm transition-colors" href="#">Pricing</a>
+                        </li>
+                        <li><a class="text-gray-400 hover:text-white text-sm transition-colors" href="#">Changelog</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-4">Resources</h3>
+                    <ul class="space-y-3">
+                        <li><a class="text-gray-400 hover:text-white text-sm transition-colors"
+                                href="#">Documentation</a></li>
+                        <li><a class="text-gray-400 hover:text-white text-sm transition-colors" href="#">API
+                                Reference</a></li>
+                        <li><a class="text-gray-400 hover:text-white text-sm transition-colors" href="#">Blog</a></li>
+                        <li><a class="text-gray-400 hover:text-white text-sm transition-colors" href="#">Community</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-4">Company</h3>
+                    <ul class="space-y-3">
+                        <li><a class="text-gray-400 hover:text-white text-sm transition-colors" href="#">About</a></li>
+                        <li><a class="text-gray-400 hover:text-white text-sm transition-colors" href="#">Careers</a>
+                        </li>
+                        <li><a class="text-gray-400 hover:text-white text-sm transition-colors" href="#">Legal</a></li>
+                        <li><a class="text-gray-400 hover:text-white text-sm transition-colors" href="#">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-border-dark pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-sm">© 2024 Veriface Inc. All rights reserved.</p>
+                <div class="flex gap-6">
+                    <a class="text-gray-500 hover:text-white text-sm" href="#">Privacy Policy</a>
+                    <a class="text-gray-500 hover:text-white text-sm" href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
+
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>VERIFACE - Deepfake Detection Analysis</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#136dec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111822",
+                        "card-dark": "#1a2332",
+                        "border-dark": "#2a3649",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .animate-scan {
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% {
+                top: 0;
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white transition-colors duration-200 min-h-screen flex flex-col">
+    <!-- Top Navigation -->
+    <header
+        class="flex items-center justify-between border-b border-solid border-slate-200 dark:border-border-dark px-6 py-4 lg:px-10 bg-white dark:bg-[#111822] sticky top-0 z-50">
+        <div class="flex items-center gap-4">
+            <div class="text-primary size-8 flex items-center justify-center bg-primary/10 rounded-lg">
+                <span class="material-symbols-outlined text-2xl">fingerprint</span>
+            </div>
+            <h2 class="text-xl font-bold tracking-tight">VERIFACE</h2>
+        </div>
+        <nav class="hidden md:flex items-center gap-8">
+            <a class="text-slate-500 hover:text-primary dark:text-slate-400 dark:hover:text-white text-sm font-medium transition-colors"
+                href="#">Dashboard</a>
+            <a class="text-primary text-sm font-bold" href="#">Analysis</a>
+            <a class="text-slate-500 hover:text-primary dark:text-slate-400 dark:hover:text-white text-sm font-medium transition-colors"
+                href="#">History</a>
+            <a class="text-slate-500 hover:text-primary dark:text-slate-400 dark:hover:text-white text-sm font-medium transition-colors"
+                href="#">Settings</a>
+        </nav>
+        <div class="flex gap-3">
+            <button
+                class="flex items-center justify-center rounded-lg size-10 bg-slate-100 hover:bg-slate-200 dark:bg-card-dark dark:hover:bg-border-dark text-slate-600 dark:text-slate-300 transition-colors">
+                <span class="material-symbols-outlined text-[20px]">notifications</span>
+            </button>
+            <button
+                class="flex items-center justify-center rounded-lg size-10 bg-slate-100 hover:bg-slate-200 dark:bg-card-dark dark:hover:bg-border-dark text-slate-600 dark:text-slate-300 transition-colors">
+                <span class="material-symbols-outlined text-[20px]">account_circle</span>
+            </button>
+        </div>
+    </header>
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col lg:flex-row overflow-hidden h-[calc(100vh-73px)]">
+        <!-- Left Panel: Upload & Input -->
+        <section
+            class="flex-1 flex flex-col p-6 lg:p-10 overflow-y-auto border-r border-slate-200 dark:border-border-dark">
+            <div class="max-w-3xl mx-auto w-full flex flex-col gap-8">
+                <!-- Hero Text -->
+                <div class="space-y-2">
+                    <h1 class="text-4xl lg:text-5xl font-bold tracking-tight">Deepfake Analysis Engine</h1>
+                    <p class="text-slate-500 dark:text-slate-400 text-lg">Upload media to detect digital manipulation
+                        and verify authenticity using our proprietary AI models.</p>
+                </div>
+                <!-- Upload Area -->
+                <div
+                    class="group relative flex flex-col items-center justify-center gap-6 rounded-2xl border-2 border-dashed border-slate-300 dark:border-border-dark hover:border-primary dark:hover:border-primary bg-slate-50 dark:bg-card-dark/30 transition-all duration-300 px-6 py-16 cursor-pointer">
+                    <div
+                        class="size-20 rounded-full bg-primary/10 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-primary text-4xl">cloud_upload</span>
+                    </div>
+                    <div class="text-center space-y-1">
+                        <p class="text-xl font-bold">Drag &amp; Drop media here</p>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm">Supports MP4, MOV, JPG, PNG, WAV up to
+                            500MB</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <button
+                            class="bg-primary hover:bg-blue-600 text-white font-bold h-10 px-6 rounded-lg text-sm transition-colors shadow-lg shadow-primary/20">
+                            Browse Files
+                        </button>
+                        <button
+                            class="bg-white dark:bg-border-dark hover:bg-slate-100 dark:hover:bg-[#354256] text-slate-700 dark:text-white font-medium h-10 px-4 rounded-lg text-sm transition-colors border border-slate-200 dark:border-transparent">
+                            Enter URL
+                        </button>
+                    </div>
+                    <!-- Security Badge -->
+                    <div class="absolute bottom-4 flex items-center gap-2 text-xs text-slate-400 dark:text-slate-500">
+                        <span class="material-symbols-outlined text-sm">lock</span>
+                        <span>Files are encrypted and auto-deleted after 24h</span>
+                    </div>
+                </div>
+                <!-- Processing Queue (Visible when active) -->
+                <div
+                    class="bg-white dark:bg-card-dark rounded-xl border border-slate-200 dark:border-border-dark p-5 shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="size-10 rounded bg-slate-100 dark:bg-border-dark overflow-hidden relative">
+                                <!-- Thumbnail Placeholder -->
+                                <div class="absolute inset-0 bg-cover bg-center"
+                                    data-alt="Thumbnail of a person's face being analyzed"
+                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCRLnFuzFxj8kSmAC_96W9Bl7z8PRQNgB_-nrBgqq0hT4Jm0nhLkbr2umpoLXOV6mY-xkg1d7jUZzH0wdU1RQ-hMB2aBLB9DyGpk26nZDBN428ha6A7c75cMDm2bBJaR1mECSN_MS-J8-mJqGaGWHiWt5MH-WuLIEYbFre-hYXk4CDx3M0WhfXNzX6krtYAN7sdXxR9qusLuvs90xHmzParWZaptNXK5bnbriYwI0pqW2ARNF4pUCDk2aM_FS_qgOco2dlxu47cDQ6H'); opacity: 0.8;">
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-medium text-sm">interview_clip_04.mp4</p>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">14.2 MB • Processing...</p>
+                            </div>
+                        </div>
+                        <span class="text-primary text-sm font-bold">82%</span>
+                    </div>
+                    <div class="h-1.5 w-full bg-slate-100 dark:bg-border-dark rounded-full overflow-hidden">
+                        <div class="h-full bg-primary w-[82%] rounded-full relative overflow-hidden">
+                            <div class="absolute inset-0 bg-white/20 w-full animate-[shimmer_2s_infinite]"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Right Panel: Results Dashboard -->
+        <section
+            class="w-full lg:w-[480px] xl:w-[560px] bg-slate-50 dark:bg-[#0d1218] flex flex-col border-l border-slate-200 dark:border-border-dark overflow-y-auto">
+            <div class="p-6 lg:p-8 space-y-8">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-2xl font-bold tracking-tight">Analysis Report</h2>
+                    <button class="text-slate-500 hover:text-primary dark:text-slate-400 transition-colors">
+                        <span class="material-symbols-outlined">download</span>
+                    </button>
+                </div>
+                <!-- Verdict Card -->
+                <div id="verdict-card"
+                    class="bg-red-500/10 border border-red-500/20 rounded-xl p-6 flex items-center justify-between relative overflow-hidden transition-colors duration-500">
+                    <div class="relative z-10">
+                        <p class="text-red-600 dark:text-red-400 font-bold text-sm tracking-wider uppercase mb-1">
+                            Verdict</p>
+                        <h3 id="verdict-title" class="text-3xl font-black text-red-600 dark:text-red-500">FAKE DETECTED
+                        </h3>
+                        <p id="verdict-text" class="text-red-600/80 dark:text-red-400/80 text-sm mt-1">High probability
+                            of manipulation
+                            found.</p>
+                    </div>
+                    <div class="relative z-10 flex flex-col items-center">
+                        <div class="size-16 rounded-full border-4 border-red-500 flex items-center justify-center bg-background-light dark:bg-background-dark"
+                            id="confidence-circle">
+                            <span id="confidence-score"
+                                class="text-lg font-bold text-red-600 dark:text-red-500">98%</span>
+                        </div>
+                        <span
+                            class="text-[10px] font-bold mt-2 uppercase tracking-wide text-slate-500">Confidence</span>
+                    </div>
+                    <!-- Decorative BG -->
+                    <div class="absolute -right-6 -bottom-6 text-red-500/5 rotate-12 pointer-events-none">
+                        <span class="material-symbols-outlined text-[150px]">warning</span>
+                    </div>
+                </div>
+                <!-- Visual Analysis Preview -->
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-bold text-lg">Visual Breakdown</h3>
+                        <span
+                            class="text-xs bg-slate-200 dark:bg-border-dark px-2 py-1 rounded text-slate-600 dark:text-slate-300 font-medium">00:12
+                            / 01:45</span>
+                    </div>
+                    <div
+                        class="relative rounded-xl overflow-hidden aspect-video bg-black group border border-slate-200 dark:border-border-dark">
+                        <!-- Video Placeholder -->
+                        <div id="visual-preview"
+                            class="absolute inset-0 bg-cover bg-center flex items-center justify-center overflow-hidden"
+                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDnpaCmo4VnLJ2n4eeSrrLNEKbhVktsXYPe20tnMfto3E7b3oEd2xRJIW5kQroEhzlucimQyuReNQ-iviZSwSLZsIpBYevJjV2HxI8LIvXGyeOPI7DqDi3_Hr48n75CMbhGmm5fMpxY4dBshaTewHqKI-5xITsdVkj8xZqD82RTp_CZG89jMJjEzEyxNzxNAnbMwGc2tEHZTMFu8JqhGkP9YV-62k7RuVf1WAyCNrA5GmC5BN4tP799m9Oe5aEIy-jvW-DywSmwfWTe')">
+                            <!-- Dynamic IMG or VIDEO will be injected here -->
+                            <!-- Loading Overlay -->
+                            <div id="processing-overlay"
+                                class="absolute inset-0 bg-black/80 z-50 hidden flex flex-col items-center justify-center">
+                                <span
+                                    class="material-symbols-outlined text-4xl text-primary animate-spin mb-2">progress_activity</span>
+                                <span class="text-white font-bold tracking-wider">ANALYZING MEDIA...</span>
+                            </div>
+                        </div>
+                        <!-- Scanning Overlay Effect -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-b from-transparent via-primary/10 to-transparent h-[20%] w-full animate-scan pointer-events-none border-b border-primary/50 shadow-[0_0_15px_rgba(19,109,236,0.5)]">
+                        </div>
+                        <!-- Detection Overlays (Hidden by default) -->
+                        <div id="overlay-lipsync"
+                            class="hidden absolute top-[22%] left-[42%] w-[16%] h-[8%] border-2 border-red-500 rounded bg-red-500/10 shadow-[0_0_15px_rgba(239,68,68,0.5)]">
+                            <div
+                                class="absolute -top-5 left-0 bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-t">
+                                Lip Sync Artifacts
+                            </div>
+                        </div>
+                        <div id="overlay-lighting"
+                            class="hidden absolute top-[20%] left-[30%] w-[40%] h-[30%] border-2 border-orange-500 rounded bg-orange-500/10 shadow-[0_0_15px_rgba(249,115,22,0.5)]">
+                            <div
+                                class="absolute -top-5 right-0 bg-orange-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-t">
+                                Lighting Mismatch
+                            </div>
+                        </div>
+                        <div id="overlay-pixels"
+                            class="hidden absolute bottom-[20%] right-[30%] w-[25%] h-[25%] border-2 border-purple-500 rounded-full bg-purple-500/10 shadow-[0_0_15px_rgba(168,85,247,0.5)]">
+                            <div
+                                class="absolute -bottom-5 right-0 bg-purple-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-b">
+                                Pixel Noise Pattern
+                            </div>
+                        </div>
+                        <!-- Success Overlay (Green) -->
+                        <div id="overlay-verified"
+                            class="hidden absolute top-[15%] left-[30%] w-[40%] h-[60%] border-2 border-green-500 rounded-xl shadow-[0_0_20px_rgba(34,197,94,0.4)]">
+                            <div
+                                class="absolute -top-6 left-1/2 -translate-x-1/2 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-t flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[14px]">verified</span>
+                                Verified Authentic
+                            </div>
+                            <!-- Corner Accents -->
+                            <div class="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-green-500"></div>
+                            <div class="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-green-500"></div>
+                            <div class="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-green-500">
+                            </div>
+                            <div class="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-green-500">
+                            </div>
+                        </div>
+                        <!-- Controls Overlay -->
+                        <div
+                            class="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/80 to-transparent flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button class="text-white hover:text-primary"><span
+                                    class="material-symbols-outlined">play_arrow</span></button>
+                            <div class="flex-1 mx-4 h-1 bg-white/30 rounded-full">
+                                <div class="w-[30%] h-full bg-primary rounded-full"></div>
+                            </div>
+                            <button class="text-white hover:text-primary"><span
+                                    class="material-symbols-outlined">fullscreen</span></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Frame Analysis Timeline -->
+                <div class="space-y-4">
+                    <h3 class="font-bold text-lg">Frame Anomalies</h3>
+                    <div class="flex gap-3 overflow-x-auto pb-4 scrollbar-hide">
+                        <!-- Frame Item Active -->
+                        <div class="min-w-[100px] flex flex-col gap-2 group cursor-pointer">
+                            <div class="aspect-video rounded-lg overflow-hidden border-2 border-red-500 relative">
+                                <div class="absolute inset-0 bg-cover bg-center"
+                                    data-alt="Frame at 0:12 showing anomaly"
+                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCymlVpXo0i7-5yFcmkWY-9xCSkx1v_-lcqdNvI1RTheBEa-2vbh-45qabNIQE896hsUZDZV_zm8Bh1niTzhlcyn4OiG9CzRaAo3_koF5P1kW1sitqJHKUjeD-VSOc2W_hQ7dXbt77neG_H2c5tg3trgPD0RnG8yMCrk2wqi3D6hCzvqI70IqqSN9UG02BmnijHeK_E0Qz2fl_kaJHqdXcpSc0Puqk32KNWVbmsLHb0zWmWP96zpWgSSLcgRbk4chnmwlnhbcplky58')">
+                                </div>
+                                <div class="absolute inset-0 bg-red-500/20"></div>
+                            </div>
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="font-bold text-red-500">00:12</span>
+                                <span class="text-slate-400">Lip Sync</span>
+                            </div>
+                        </div>
+                        <!-- Frame Item -->
+                        <div
+                            class="min-w-[100px] flex flex-col gap-2 group cursor-pointer opacity-60 hover:opacity-100 transition-opacity">
+                            <div class="aspect-video rounded-lg overflow-hidden border border-slate-700 relative">
+                                <div class="absolute inset-0 bg-cover bg-center" data-alt="Frame at 0:15"
+                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB6Q0FtXU9sRX_aKQKq-mVIFc2jafPH1VqOJ8snw1QidACGw2NoaQd5hgzjvCS28nslSUWPK0gYAoatL2OpWe4JPMzRXvEIz_QcWo53PK2QQbl_VaoFfoLhJmiocM5yZ_E09pbFQh0RclExMjpW6KFCxpszXf8H8Yr1unTFhxggQpSmvn_PspB9kWvPf3tQvsypfPWkkcn1LPV3EGq3HJPAVggrJDm6H4jUxTz2BTrYsxKo02xDLlDCQ11Ef6PCm-CDburCgpRZhIxM')">
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="font-bold text-slate-400">00:15</span>
+                                <span class="text-slate-500">Artifacts</span>
+                            </div>
+                        </div>
+                        <!-- Frame Item -->
+                        <div
+                            class="min-w-[100px] flex flex-col gap-2 group cursor-pointer opacity-60 hover:opacity-100 transition-opacity">
+                            <div class="aspect-video rounded-lg overflow-hidden border border-slate-700 relative">
+                                <div class="absolute inset-0 bg-cover bg-center" data-alt="Frame at 0:45"
+                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBo2z-Xl_iGNj1vtaRXOmLcKrp6weZNVbATa7teQ6iuA2vYp6yE9wE0CBoyTjLgd2MVRETX3FffA-aEOmJmXvRR03-YcBo5I616x64JWOlik1qz4_rdKwzyOd_VhhVXCBpSUL17DXA97fYvIVtFhFko80L8VvCnYrcmdm4dpqeI1boxHK6PcZUspv5FSdIBvk5TfF6KKxGWJle3y3y6CxErK4QOe6Qwrein0VSxkfJetOUuL3IX7MzRNv9ANR0iqa5401NysxrxRyS9')">
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="font-bold text-slate-400">00:45</span>
+                                <span class="text-slate-500">Lighting</span>
+                            </div>
+                        </div>
+                        <!-- Frame Item Safe -->
+                        <div
+                            class="min-w-[100px] flex flex-col gap-2 group cursor-pointer opacity-40 hover:opacity-80 transition-opacity">
+                            <div
+                                class="aspect-video rounded-lg overflow-hidden border border-slate-800 bg-slate-800 relative flex items-center justify-center">
+                                <span class="material-symbols-outlined text-slate-600">image</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="font-bold text-slate-500">01:02</span>
+                                <span class="text-slate-600">Clean</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Detailed Metrics -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div
+                        class="bg-white dark:bg-card-dark p-4 rounded-xl border border-slate-200 dark:border-border-dark">
+                        <div class="flex items-center gap-2 mb-2 text-slate-500 dark:text-slate-400">
+                            <span class="material-symbols-outlined text-lg">graphic_eq</span>
+                            <span class="text-xs font-bold uppercase tracking-wider">Audio Consistency</span>
+                        </div>
+                        <p id="risk-audio-label" class="text-2xl font-bold text-yellow-500">Medium Risk</p>
+                        <div class="w-full bg-slate-100 dark:bg-border-dark h-1.5 rounded-full mt-3">
+                            <div id="risk-audio-bar" class="bg-yellow-500 h-1.5 rounded-full" style="width: 65%"></div>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-card-dark p-4 rounded-xl border border-slate-200 dark:border-border-dark">
+                        <div class="flex items-center gap-2 mb-2 text-slate-500 dark:text-slate-400">
+                            <span class="material-symbols-outlined text-lg">face</span>
+                            <span class="text-xs font-bold uppercase tracking-wider">Face Blending</span>
+                        </div>
+                        <p id="risk-face-label" class="text-2xl font-bold text-red-500">High Risk</p>
+                        <div class="w-full bg-slate-100 dark:bg-border-dark h-1.5 rounded-full mt-3">
+                            <div id="risk-face-bar" class="bg-red-500 h-1.5 rounded-full" style="width: 92%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-4">
+                    <button
+                        class="w-full bg-primary hover:bg-blue-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg shadow-primary/25 transition-all flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined">assignment</span>
+                        Export Full Forensic Report
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="assets/js/media-store.js"></script>
+</body>
+
+</html>

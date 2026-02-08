@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Report Misuse &amp; Documentation - Veriface</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#136dec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111822",
+                        "card-dark": "#1a2332",
+                        "border-dark": "#233348",
+                        "text-secondary": "#92a9c9",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: "Noto Sans", sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .font-display {
+            font-family: "Space Grotesk", sans-serif;
+        }
+
+        /* Custom scrollbar for dark theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #111822;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #233348;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #324867;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white min-h-screen flex flex-col overflow-x-hidden">
+    <div class="relative flex h-full min-h-screen w-full flex-col group/design-root">
+        <div class="layout-container flex h-full grow flex-col">
+            <!-- Top Navigation -->
+            <header
+                class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-border-dark px-10 py-3 bg-white dark:bg-background-dark sticky top-0 z-50">
+                <div class="flex items-center gap-4 text-slate-900 dark:text-white">
+                    <a href="index.html" class="size-8 text-primary hover:text-primary-dark transition-colors">
+                        <svg class="w-full h-full" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z"
+                                fill="currentColor"></path>
+                        </svg>
+                    </a>
+                    <h2 class="text-lg font-bold leading-tight tracking-[-0.015em] font-display">VERIFACE</h2>
+                </div>
+                <div class="flex flex-1 justify-end gap-8">
+                    <nav class="hidden md:flex items-center gap-9">
+                        <a href="p5.html"
+                            class="text-slate-600 dark:text-text-secondary hover:text-slate-900 dark:hover:text-white text-sm font-medium leading-normal transition-colors">Dashboard</a>
+                        <a href="p1.html"
+                            class="text-slate-600 dark:text-text-secondary hover:text-slate-900 dark:hover:text-white text-sm font-medium leading-normal transition-colors">Deepfake
+                            Detection</a>
+                        <a href="p2.html"
+                            class="text-slate-600 dark:text-text-secondary hover:text-slate-900 dark:hover:text-white text-sm font-medium leading-normal transition-colors">Identity
+                            Verify</a>
+                        <a href="p4.html" class="text-primary text-sm font-medium leading-normal">Report Misuse</a>
+                        <a href="p5.html"
+                            class="text-slate-600 dark:text-text-secondary hover:text-slate-900 dark:hover:text-white text-sm font-medium leading-normal transition-colors">History</a>
+                        <a href="#"
+                            class="text-slate-600 dark:text-text-secondary hover:text-slate-900 dark:hover:text-white text-sm font-medium leading-normal transition-colors">Settings</a>
+                    </nav>
+                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-gray-200 dark:border-border-dark"
+                        data-alt="User avatar placeholder"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCi-8W_9uCgZwAFdtJKrWdq7OEcp7XW-LBfG5JaXtARZNM4fsom3tYgN1-_1YqABk6Qqj9u5xKpAQpS3Cp0m_fdCXm9CZS_UbTq1wUSOHJLME4LZZBbkaaUCwwtJZuhbHvd6Gg1-tBqTUVt55umoaerGfCzfolKRw8v8r411xqHENsUhnD4J85oB7XvyE20eaMYo8DldHfhhC4_xLEMKrVzAqz6d5oE9CJpDstXSSI93TSSOwZo-SAmUiSrgCCE_Nie6c-cBL1DO6Yk");'>
+                    </div>
+                </div>
+            </header>
+            <div class="flex flex-1">
+                <!-- Sidebar -->
+                <aside
+                    class="hidden lg:flex w-64 flex-col border-r border-gray-200 dark:border-border-dark bg-white dark:bg-background-dark p-4">
+                    <div class="flex flex-col gap-4">
+                        <div class="flex gap-3 items-center mb-6">
+                            <div class="bg-primary/20 p-2 rounded-lg text-primary">
+                                <span class="material-symbols-outlined">shield</span>
+                            </div>
+                            <div class="flex flex-col">
+                                <h1
+                                    class="text-slate-900 dark:text-white text-base font-bold leading-normal font-display">
+                                    Secure Ops</h1>
+                                <p class="text-slate-500 dark:text-text-secondary text-xs font-normal leading-normal">
+                                    Case #8821-X</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-card-dark text-slate-600 dark:text-text-secondary transition-colors group"
+                                href="#">
+                                <span class="material-symbols-outlined group-hover:text-primary">dashboard</span>
+                                <span class="text-sm font-medium">Dashboard</span>
+                            </a>
+                            <a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-card-dark text-slate-600 dark:text-text-secondary transition-colors group"
+                                href="#">
+                                <span class="material-symbols-outlined group-hover:text-primary">analytics</span>
+                                <span class="text-sm font-medium">Analysis</span>
+                            </a>
+                            <a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary" href="#">
+                                <span class="material-symbols-outlined fill-current">description</span>
+                                <span class="text-sm font-medium">Reports</span>
+                            </a>
+                            <a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-card-dark text-slate-600 dark:text-text-secondary transition-colors group"
+                                href="#">
+                                <span class="material-symbols-outlined group-hover:text-primary">history</span>
+                                <span class="text-sm font-medium">History</span>
+                            </a>
+                        </div>
+                        <div class="mt-auto pt-8 border-t border-gray-200 dark:border-border-dark">
+                            <div class="bg-slate-50 dark:bg-card-dark rounded-xl p-4">
+                                <h4 class="font-display font-bold text-sm mb-2">Need help?</h4>
+                                <p class="text-xs text-slate-500 dark:text-text-secondary mb-3">Our legal team is
+                                    available for urgent consultations regarding deepfake misuse.</p>
+                                <button class="text-primary text-xs font-bold hover:underline">Contact Support</button>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+                <!-- Main Content Area -->
+                <main class="flex-1 bg-slate-50 dark:bg-[#0f1115] p-6 lg:p-10 flex flex-col items-center">
+                    <div class="w-full max-w-5xl flex flex-col gap-8">
+                        <!-- Header Section -->
+                        <div class="flex flex-col gap-2">
+                            <h1
+                                class="text-3xl lg:text-4xl font-bold font-display tracking-tight text-slate-900 dark:text-white">
+                                Report Misuse &amp; Documentation</h1>
+                            <p class="text-slate-500 dark:text-text-secondary text-base lg:text-lg">Securely document
+                                deepfake incidents, analyze evidence, and generate verified legal reports.</p>
+                        </div>
+                        <!-- Progress Stepper -->
+                        <div
+                            class="w-full bg-white dark:bg-card-dark rounded-xl p-6 border border-gray-200 dark:border-border-dark shadow-sm">
+                            <div class="flex items-center justify-between relative">
+                                <!-- Line background -->
+                                <div
+                                    class="absolute left-0 top-1/2 transform -translate-y-1/2 w-full h-1 bg-gray-200 dark:bg-border-dark z-0">
+                                </div>
+                                <!-- Step 1 (Completed) -->
+                                <div class="relative z-10 flex flex-col items-center gap-2">
+                                    <div
+                                        class="size-10 rounded-full bg-primary flex items-center justify-center text-white font-bold shadow-lg shadow-primary/30 ring-4 ring-white dark:ring-card-dark">
+                                        <span class="material-symbols-outlined text-xl">check</span>
+                                    </div>
+                                    <span
+                                        class="text-sm font-medium text-primary absolute -bottom-8 whitespace-nowrap">Evidence
+                                        Upload</span>
+                                </div>
+                                <!-- Step 2 (Active) -->
+                                <div class="relative z-10 flex flex-col items-center gap-2">
+                                    <div
+                                        class="size-10 rounded-full bg-primary flex items-center justify-center text-white font-bold shadow-lg shadow-primary/30 ring-4 ring-white dark:ring-card-dark">
+                                        <span class="font-display">2</span>
+                                    </div>
+                                    <span
+                                        class="text-sm font-medium text-slate-900 dark:text-white absolute -bottom-8 whitespace-nowrap">AI
+                                        Analysis Summary</span>
+                                </div>
+                                <!-- Step 3 (Pending) -->
+                                <div class="relative z-10 flex flex-col items-center gap-2">
+                                    <div
+                                        class="size-10 rounded-full bg-slate-200 dark:bg-border-dark flex items-center justify-center text-slate-500 dark:text-text-secondary font-bold ring-4 ring-white dark:ring-card-dark">
+                                        <span class="font-display">3</span>
+                                    </div>
+                                    <span
+                                        class="text-sm font-medium text-slate-500 dark:text-text-secondary absolute -bottom-8 whitespace-nowrap">Report
+                                        Preview</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Main Content Card -->
+                        <div
+                            class="bg-white dark:bg-card-dark rounded-xl border border-gray-200 dark:border-border-dark overflow-hidden shadow-sm mt-4">
+                            <!-- Header of Card -->
+                            <div
+                                class="p-6 border-b border-gray-200 dark:border-border-dark flex justify-between items-center bg-slate-50/50 dark:bg-transparent">
+                                <div>
+                                    <h3
+                                        class="text-lg font-bold font-display text-slate-900 dark:text-white flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-primary">smart_toy</span>
+                                        AI Incident Analysis
+                                    </h3>
+                                    <p class="text-sm text-slate-500 dark:text-text-secondary mt-1">Review the
+                                        automatically generated summary before proceeding to report generation.</p>
+                                </div>
+                                <div
+                                    class="px-3 py-1 bg-green-500/10 text-green-500 border border-green-500/20 rounded-full text-xs font-medium flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[16px]">verified</span>
+                                    Analysis Complete
+                                </div>
+                            </div>
+                            <div class="p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+                                <!-- Left Column: Video Preview & Stats -->
+                                <div class="lg:col-span-5 flex flex-col gap-6">
+                                    <div
+                                        class="rounded-lg overflow-hidden border border-gray-200 dark:border-border-dark bg-black relative group">
+                                        <div class="aspect-video w-full bg-cover bg-center opacity-80"
+                                            data-alt="Video frame showing a person speaking"
+                                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD4IcpofdbbeFUdR7BckC6aKD7eEFPWXXuIdQ4qV9VXuBUztzNk05a0SwQeuzYZcredtXvFG1QhbKhrR7Gv252BzLrJE2QttnCYahappb6eOEtteZmX3RiujWMzJbwcfZqeo2aUUZFlaUBTc_OXE9Ons6GPRuTe3NchIVN6XHPOIwJURZwFGzDyFNxSa-X7d9YF9q07e59wE9iedh0WToQNIIgN6HEAtIFnMt8R5jkVGCPx32q2CwKp43zCSgvFpXg28adm7-af8ays');">
+                                        </div>
+                                        <div class="absolute inset-0 flex items-center justify-center">
+                                            <div
+                                                class="size-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center cursor-pointer hover:bg-white/30 transition-all">
+                                                <span
+                                                    class="material-symbols-outlined text-white text-3xl">play_arrow</span>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="absolute bottom-3 left-3 px-2 py-1 bg-black/60 backdrop-blur-md rounded text-xs text-white font-mono">
+                                            00:14 / 01:22
+                                        </div>
+                                        <!-- Detection Overlay UI Element -->
+                                        <div
+                                            class="absolute top-3 right-3 px-2 py-1 bg-red-500/90 backdrop-blur-md rounded text-xs text-white font-bold flex items-center gap-1 animate-pulse">
+                                            <span class="material-symbols-outlined text-[14px]">warning</span>
+                                            DEEPFAKE DETECTED
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <div
+                                            class="bg-slate-50 dark:bg-background-dark p-4 rounded-lg border border-gray-200 dark:border-border-dark">
+                                            <p class="text-xs text-slate-500 dark:text-text-secondary mb-1">Confidence
+                                                Score</p>
+                                            <p class="text-2xl font-bold text-primary font-display">98.4%</p>
+                                            <div
+                                                class="w-full bg-gray-200 dark:bg-border-dark h-1.5 rounded-full mt-2 overflow-hidden">
+                                                <div class="bg-primary h-full rounded-full" style="width: 98.4%"></div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="bg-slate-50 dark:bg-background-dark p-4 rounded-lg border border-gray-200 dark:border-border-dark">
+                                            <p class="text-xs text-slate-500 dark:text-text-secondary mb-1">Manipulation
+                                                Type</p>
+                                            <p class="text-xl font-bold text-white font-display">Face Swap</p>
+                                            <p class="text-xs text-slate-400 mt-1">+ Lip Sync</p>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="bg-slate-50 dark:bg-background-dark p-4 rounded-lg border border-gray-200 dark:border-border-dark">
+                                        <div class="flex items-center gap-2 mb-3">
+                                            <span class="material-symbols-outlined text-slate-400">info</span>
+                                            <h4 class="text-sm font-bold text-slate-700 dark:text-white">Technical
+                                                Metadata</h4>
+                                        </div>
+                                        <div class="space-y-2 text-xs">
+                                            <div
+                                                class="flex justify-between border-b border-gray-200 dark:border-border-dark pb-2">
+                                                <span class="text-slate-500 dark:text-text-secondary">Source
+                                                    Resolution</span>
+                                                <span class="text-slate-900 dark:text-white font-mono">1920x1080
+                                                    (HD)</span>
+                                            </div>
+                                            <div
+                                                class="flex justify-between border-b border-gray-200 dark:border-border-dark pb-2">
+                                                <span class="text-slate-500 dark:text-text-secondary">Frame Rate</span>
+                                                <span class="text-slate-900 dark:text-white font-mono">60 fps</span>
+                                            </div>
+                                            <div
+                                                class="flex justify-between border-b border-gray-200 dark:border-border-dark pb-2">
+                                                <span class="text-slate-500 dark:text-text-secondary">Audio
+                                                    Mismatch</span>
+                                                <span class="text-red-400 font-mono">Detected (120ms lag)</span>
+                                            </div>
+                                            <div class="flex justify-between pt-1">
+                                                <span class="text-slate-500 dark:text-text-secondary">Artifacts
+                                                    Found</span>
+                                                <span class="text-slate-900 dark:text-white font-mono">Eye blinking,
+                                                    Jawline</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Right Column: Text Summary & Form -->
+                                <div class="lg:col-span-7 flex flex-col gap-6">
+                                    <div class="space-y-4">
+                                        <label class="block">
+                                            <span
+                                                class="text-sm font-medium text-slate-700 dark:text-white mb-2 block">Incident
+                                                Title</span>
+                                            <input
+                                                class="w-full bg-white dark:bg-background-dark border border-gray-300 dark:border-border-dark rounded-lg px-4 py-2.5 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all placeholder-slate-400 dark:placeholder-slate-600"
+                                                type="text"
+                                                value="Unauthorized CEO Likeness Usage - Annual Meeting Video" />
+                                        </label>
+                                        <label class="block">
+                                            <div class="flex justify-between mb-2">
+                                                <span
+                                                    class="text-sm font-medium text-slate-700 dark:text-white block">AI
+                                                    Generated Summary</span>
+                                                <span
+                                                    class="text-xs text-primary cursor-pointer hover:underline flex items-center gap-1">
+                                                    <span class="material-symbols-outlined text-[14px]">refresh</span>
+                                                    Regenerate
+                                                </span>
+                                            </div>
+                                            <textarea
+                                                class="w-full bg-white dark:bg-background-dark border border-gray-300 dark:border-border-dark rounded-lg px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all resize-none leading-relaxed"
+                                                rows="6">Analysis of the uploaded footage (filename: ceo_announcement_fake.mp4) indicates a high probability of synthetic media manipulation. The subject's facial movements exhibit inconsistencies typical of Generative Adversarial Network (GAN) based face-swapping algorithms. 
+
+Specifically, from timestamp 00:04 to 01:10, micro-expressions around the eyes do not align with the audio prosody. Furthermore, digital artifacts are visible along the jawline boundary during rapid head movements. The audio track appears to be cloned, with unnatural breathing pauses detected.</textarea>
+                                            <p class="text-xs text-slate-500 dark:text-text-secondary mt-2 text-right">
+                                                You can edit this summary before finalizing the report.</p>
+                                        </label>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            <label class="block">
+                                                <span
+                                                    class="text-sm font-medium text-slate-700 dark:text-white mb-2 block">Date
+                                                    of Occurrence</span>
+                                                <div class="relative">
+                                                    <input
+                                                        class="w-full bg-white dark:bg-background-dark border border-gray-300 dark:border-border-dark rounded-lg px-4 py-2.5 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all [color-scheme:light] dark:[color-scheme:dark]"
+                                                        type="date" value="2023-10-24" />
+                                                </div>
+                                            </label>
+                                            <label class="block">
+                                                <span
+                                                    class="text-sm font-medium text-slate-700 dark:text-white mb-2 block">Platform
+                                                    Source</span>
+                                                <div class="relative">
+                                                    <select
+                                                        class="w-full bg-white dark:bg-background-dark border border-gray-300 dark:border-border-dark rounded-lg px-4 py-2.5 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all appearance-none">
+                                                        <option>YouTube</option>
+                                                        <option>Twitter / X</option>
+                                                        <option>Facebook</option>
+                                                        <option>TikTok</option>
+                                                        <option>LinkedIn</option>
+                                                        <option selected="">Unknown / Direct File</option>
+                                                    </select>
+                                                    <div
+                                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500">
+                                                        <span class="material-symbols-outlined">expand_more</span>
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div
+                                            class="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4 flex gap-3 items-start">
+                                            <span
+                                                class="material-symbols-outlined text-yellow-500 shrink-0">gavel</span>
+                                            <div>
+                                                <h5 class="text-sm font-bold text-slate-900 dark:text-white mb-1">Legal
+                                                    Disclaimer</h5>
+                                                <p class="text-xs text-slate-600 dark:text-text-secondary">This report
+                                                    is generated for documentation purposes. While our accuracy is high
+                                                    (98.4%), deepfake detection is probabilistic. Consult with legal
+                                                    counsel before taking action based on this report.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Action Footer -->
+                            <div
+                                class="p-6 border-t border-gray-200 dark:border-border-dark bg-slate-50 dark:bg-[#151c28] flex justify-between items-center">
+                                <button
+                                    class="px-6 py-2.5 rounded-lg border border-gray-300 dark:border-border-dark text-slate-700 dark:text-text-secondary font-medium hover:bg-slate-100 dark:hover:bg-border-dark transition-colors flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-sm">arrow_back</span> Back to Upload
+                                </button>
+                                <div class="flex gap-4">
+                                    <button
+                                        class="px-6 py-2.5 rounded-lg border border-gray-300 dark:border-border-dark text-slate-700 dark:text-white font-medium hover:bg-slate-100 dark:hover:bg-border-dark transition-colors">
+                                        Save Draft
+                                    </button>
+                                    <button id="generate-report-btn"
+                                        class="px-6 py-2.5 rounded-lg bg-primary text-white font-medium hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/20 flex items-center gap-2">
+                                        Generate Report Preview <span
+                                            class="material-symbols-outlined text-sm">arrow_forward</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Step 3: Preview (Visually muted as it's the next step) -->
+                        <div id="preview-section"
+                            class="opacity-40 grayscale pointer-events-none transition-all duration-500">
+                            <div class="flex items-center gap-4 mb-4">
+                                <h3 class="text-xl font-bold font-display text-slate-900 dark:text-white">Next Step:
+                                    Report Preview</h3>
+                                <div class="h-px bg-gray-200 dark:border-border-dark flex-1"></div>
+                            </div>
+                            <div id="preview-container"
+                                class="bg-white dark:bg-card-dark border border-gray-200 dark:border-border-dark rounded-xl min-h-[12rem] flex flex-col items-center justify-center p-6">
+                                <div class="flex flex-col items-center gap-3">
+                                    <span
+                                        class="material-symbols-outlined text-5xl text-slate-300 dark:text-border-dark">picture_as_pdf</span>
+                                    <p class="text-slate-400 dark:text-text-secondary font-medium">Report preview will
+                                        appear here</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/media-store.js"></script>
+    <script src="assets/js/report.js"></script>
+</body>
+
+</html>

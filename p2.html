@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>VERIFACE - Digital Identity Verification</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#136dec",
+                        "primary-dark": "#0b4cb4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111822",
+                        "surface-dark": "#192433",
+                        "border-dark": "#233348",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for deep dark theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #111822;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #233348;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #324867;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-x-hidden min-h-screen flex flex-col">
+    <!-- Top Navigation Bar -->
+    <header
+        class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-border-dark bg-background-dark/95 backdrop-blur-md px-4 sm:px-10 py-3">
+        <div class="flex items-center gap-4 text-white">
+            <a href="index.html" class="size-8 text-primary hover:text-primary-dark transition-colors">
+                <span class="material-symbols-outlined text-4xl">fingerprint</span>
+            </a>
+            <h2 class="text-white text-xl font-bold leading-tight tracking-[-0.015em]">VERIFACE</h2>
+        </div>
+        <div class="hidden md:flex flex-1 justify-end gap-8 items-center">
+            <nav class="flex items-center gap-9">
+                <a href="p5.html"
+                    class="text-slate-300 hover:text-white text-sm font-medium leading-normal transition-colors">Dashboard</a>
+                <a href="p1.html"
+                    class="text-slate-300 hover:text-white text-sm font-medium leading-normal transition-colors">Analysis</a>
+                <a href="p2.html"
+                    class="text-white text-sm font-medium leading-normal border-b-2 border-primary pb-0.5">Verification</a>
+                <a href="p4.html"
+                    class="text-slate-300 hover:text-white text-sm font-medium leading-normal transition-colors">Report
+                    Misuse</a>
+                <a href="p5.html"
+                    class="text-slate-300 hover:text-white text-sm font-medium leading-normal transition-colors">History</a>
+                <a href="#"
+                    class="text-slate-300 hover:text-white text-sm font-medium leading-normal transition-colors">Settings</a>
+            </nav>
+            <div class="flex gap-3">
+                <button
+                    class="flex items-center justify-center rounded-lg size-10 bg-surface-dark hover:bg-border-dark text-white transition-colors relative">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full"></span>
+                </button>
+                <div class="bg-center bg-no-repeat bg-cover rounded-full size-10 border-2 border-surface-dark"
+                    data-alt="Portrait of a user"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC8RRP5vm20zeedE9an-XgK8esjgCgjDIToFmY76ridM0rx_RYGxK-eS9mFO0Cj-0EHqq02eqQMIQuw102XMqP0fsCDA_zZyzPJ8MDzGqHLnoA9Y6qi3Nc9SFlWaYI5XabC0RtnAAVs1fr_rsXQ5MMJqb1cH9hDbjAyNpdoKD60NZB6lG4g1S48djwpHcpfWreid4mYZj5iY27B3lZuinUERu7fKFWcDpkxUg9F7_WruP1RP0jRFyppfef21tKRzAKMTSus8CRE3sLn");'
+                    title="User Profile Picture"></div>
+            </div>
+        </div>
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden text-white">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+    </header>
+    <main class="flex-1 flex flex-col md:flex-row max-w-[1440px] mx-auto w-full">
+        <!-- Main Verification Content -->
+        <div class="flex-1 flex flex-col p-6 md:p-10 gap-8">
+            <!-- Header Section -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 animate-fade-in-up">
+                <div class="flex flex-col gap-2">
+                    <div class="flex items-center gap-2 text-primary text-sm font-bold uppercase tracking-wider">
+                        <span class="material-symbols-outlined text-sm">verified_user</span>
+                        <span>Identity Secured</span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-white">
+                        Verification Console
+                    </h1>
+                    <p class="text-slate-400 text-lg max-w-2xl mt-1">
+                        Digital Identity Fingerprint (DIF) successfully generated and anchored to the blockchain.
+                    </p>
+                </div>
+                class="bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-lg font-bold flex items-center
+                gap-2 transition-all shadow-lg shadow-primary/20 whitespace-nowrap">
+                <span class="material-symbols-outlined">download</span>
+                Download Certificate
+                </button>
+            </div>
+            <!-- Verification Card -->
+            <div class="relative overflow-hidden rounded-2xl bg-surface-dark border border-border-dark p-1">
+                <!-- Background decorative elements -->
+                <div
+                    class="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[100px] pointer-events-none">
+                </div>
+                <div
+                    class="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/5 rounded-full blur-[100px] pointer-events-none">
+                </div>
+                <div class="relative z-10 p-6 md:p-10 flex flex-col gap-8">
+                    <!-- Status Header -->
+                    <div class="flex flex-col md:flex-row items-center gap-6 border-b border-border-dark pb-8">
+                        <div
+                            class="size-20 rounded-full bg-green-500/10 flex items-center justify-center border border-green-500/30 shadow-[0_0_30px_rgba(34,197,94,0.2)]">
+                            <span class="material-symbols-outlined text-5xl text-green-400">shield_lock</span>
+                        </div>
+                        <div class="text-center md:text-left">
+                            <h2 class="text-3xl font-bold text-white mb-1">Status: Certified Immutable</h2>
+                            <p class="text-slate-400">Your digital identity has been cryptographically secured. The
+                                unique SHA-256 fingerprint below is now active.</p>
+                        </div>
+                    </div>
+                    <!-- Hash Display -->
+                    <div class="grid gap-6">
+                        <div class="bg-background-dark rounded-xl p-5 border border-border-dark relative group">
+                            <label class="text-slate-500 text-xs font-bold uppercase tracking-wider mb-2 block">SHA-256
+                                Digital Fingerprint</label>
+                            <div id="hash-display"
+                                class="font-mono text-primary text-sm md:text-lg break-all leading-relaxed">
+                                e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+                            </div>
+                            <button
+                                class="absolute top-4 right-4 text-slate-400 hover:text-white bg-surface-dark p-2 rounded-md transition-colors"
+                                title="Copy Hash">
+                                <span class="material-symbols-outlined text-lg">content_copy</span>
+                            </button>
+                        </div>
+                        <!-- Metadata Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <!-- Card 1 -->
+                            <div
+                                class="bg-background-dark p-4 rounded-xl border border-border-dark flex items-start gap-3">
+                                <div class="p-2 rounded-lg bg-surface-dark text-slate-300">
+                                    <span class="material-symbols-outlined">schedule</span>
+                                </div>
+                                <div>
+                                    <p class="text-slate-500 text-xs font-bold uppercase mb-0.5">Timestamp</p>
+                                    <p id="timestamp-display" class="text-white font-mono text-sm">Jan 24,
+                                        2026<br />14:02:45 UTC</p>
+                                </div>
+                            </div>
+                            <!-- Card 2 -->
+                            <div
+                                class="bg-background-dark p-4 rounded-xl border border-border-dark flex items-start gap-3">
+                                <div class="p-2 rounded-lg bg-surface-dark text-slate-300">
+                                    <span class="material-symbols-outlined">devices</span>
+                                </div>
+                                <div>
+                                    <p class="text-slate-500 text-xs font-bold uppercase mb-0.5">Device ID</p>
+                                    <p id="device-id-display" class="text-white font-mono text-sm">
+                                        D7-88-29-X1<br />Session: Active</p>
+                                </div>
+                            </div>
+                            <!-- Card 3 -->
+                            <div
+                                class="bg-background-dark p-4 rounded-xl border border-border-dark flex items-start gap-3">
+                                <div class="p-2 rounded-lg bg-surface-dark text-slate-300">
+                                    <span class="material-symbols-outlined">fingerprint</span>
+                                </div>
+                                <div>
+                                    <p class="text-slate-500 text-xs font-bold uppercase mb-0.5">Fingerprint ID</p>
+                                    <p id="fingerprint-id-display" class="text-white font-mono text-sm">
+                                        DIF-8829-X1<br />SECURE_V2</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Bottom Actions -->
+            <div class="flex flex-wrap gap-4 items-center">
+                <button id="share-proof-btn"
+                    class="flex items-center justify-center rounded-lg h-10 px-4 bg-surface-dark border border-border-dark hover:border-slate-500 text-white gap-2 text-sm font-medium transition-colors">
+                    <span class="material-symbols-outlined text-lg">share</span>
+                    Share Proof
+                </button>
+                <button
+                    class="flex items-center justify-center rounded-lg h-10 px-4 bg-surface-dark border border-border-dark hover:border-slate-500 text-white gap-2 text-sm font-medium transition-colors">
+                    <span class="material-symbols-outlined text-lg">history</span>
+                    View Chain Log
+                </button>
+                <span class="ml-auto flex items-center gap-2 text-xs text-slate-500">
+                    <span class="relative flex h-2 w-2">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </span>
+                    Blockchain Node Synced
+                </span>
+            </div>
+            <!-- Bottom Actions -->
+        </div>
+        <!-- Sidebar / Educational Panel -->
+        <aside class="w-full md:w-80 lg:w-96 border-l border-border-dark bg-surface-dark/50 p-6 flex flex-col gap-6">
+            <div class="pb-4 border-b border-border-dark">
+                <h3 class="text-lg font-bold text-white mb-2">How DIF Protects You</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">Your digital identity fingerprint (DIF) is a
+                    cryptographic proof of authenticity.</p>
+            </div>
+            <div class="flex flex-col gap-6">
+                <!-- Step 1 -->
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0 flex flex-col items-center">
+                        <div
+                            class="size-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-sm">
+                            1</div>
+                        <div class="w-0.5 h-full bg-border-dark my-2"></div>
+                    </div>
+                    <div class="pb-6">
+                        <h4 class="text-white font-bold text-sm mb-1">Biometric Hashing</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">
+                            We analyze key facial vectors and convert them into a unique alphanumeric string (Hash).
+                            This process is one-way and irreversible.
+                        </p>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0 flex flex-col items-center">
+                        <div
+                            class="size-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-sm">
+                            2</div>
+                        <div class="w-0.5 h-full bg-border-dark my-2"></div>
+                    </div>
+                    <div class="pb-6">
+                        <h4 class="text-white font-bold text-sm mb-1">Blockchain Anchoring</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">
+                            The hash is anchored to a public ledger. This creates an immutable timestamp that proves
+                            existence at a specific point in time.
+                        </p>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0 flex flex-col items-center">
+                        <div
+                            class="size-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-sm">
+                            3</div>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold text-sm mb-1">Deepfake Detection</h4>
+                        <p class="text-slate-400 text-xs leading-relaxed">
+                            Any alteration to your content will generate a mismatched hash, instantly alerting our
+                            detection systems to potential manipulation.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="mt-auto bg-gradient-to-br from-primary/20 to-transparent rounded-xl p-5 border border-primary/20">
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="material-symbols-outlined text-primary">auto_graph</span>
+                    <span class="text-white font-bold text-sm">Live Monitoring</span>
+                </div>
+                <p class="text-slate-400 text-xs mb-4">Your digital footprint is currently being monitored for
+                    unauthorized cloning attempts.</p>
+                <button
+                    class="w-full py-2 bg-surface-dark hover:bg-background-dark text-white text-xs font-bold rounded border border-border-dark transition-colors">
+                    Configure Alerts
+                </button>
+            </div>
+        </aside>
+    </main>
+    <script src="assets/js/media-store.js"></script>
+    <script src="assets/js/verification.js"></script>
+</body>
+
+</html>

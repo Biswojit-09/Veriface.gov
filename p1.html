@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>VERIFACE - Deepfake Detection Analysis</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#136dec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111822",
+                        "card-dark": "#1a2332",
+                        "border-dark": "#2a3649",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .animate-scan {
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% {
+                top: 0;
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white transition-colors duration-200 min-h-screen flex flex-col">
+    <!-- Top Navigation -->
+    <header
+        class="flex items-center justify-between border-b border-solid border-slate-200 dark:border-border-dark px-6 py-4 lg:px-10 bg-white dark:bg-[#111822] sticky top-0 z-50">
+        <div class="flex items-center gap-4">
+            <a href="index.html"
+                class="text-primary size-8 flex items-center justify-center bg-primary/10 rounded-lg hover:bg-primary/20 transition-colors">
+                <span class="material-symbols-outlined text-2xl">fingerprint</span>
+            </a>
+            <h2 class="text-xl font-bold tracking-tight">VERIFACE</h2>
+        </div>
+        <nav class="hidden md:flex items-center gap-8">
+            <a href="p5.html"
+                class="text-slate-500 hover:text-primary dark:text-slate-400 dark:hover:text-white text-sm font-medium transition-colors">Dashboard</a>
+            <a href="p1.html" class="text-primary text-sm font-bold">Analysis</a>
+            <a href="p2.html"
+                class="text-slate-500 hover:text-primary dark:text-slate-400 dark:hover:text-white text-sm font-medium transition-colors">Verification</a>
+            <a href="p4.html"
+                class="text-slate-500 hover:text-primary dark:text-slate-400 dark:hover:text-white text-sm font-medium transition-colors">Report
+                Misuse</a>
+            <a href="p5.html"
+                class="text-slate-500 hover:text-primary dark:text-slate-400 dark:hover:text-white text-sm font-medium transition-colors">History</a>
+            <a href="#"
+                class="text-slate-500 hover:text-primary dark:text-slate-400 dark:hover:text-white text-sm font-medium transition-colors">Settings</a>
+        </nav>
+        <div class="flex gap-3">
+            <button
+                class="flex items-center justify-center rounded-lg size-10 bg-slate-100 hover:bg-slate-200 dark:bg-card-dark dark:hover:bg-border-dark text-slate-600 dark:text-slate-300 transition-colors">
+                <span class="material-symbols-outlined text-[20px]">notifications</span>
+            </button>
+            <button
+                class="flex items-center justify-center rounded-lg size-10 bg-slate-100 hover:bg-slate-200 dark:bg-card-dark dark:hover:bg-border-dark text-slate-600 dark:text-slate-300 transition-colors">
+                <span class="material-symbols-outlined text-[20px]">account_circle</span>
+            </button>
+        </div>
+    </header>
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col lg:flex-row overflow-hidden h-[calc(100vh-73px)]">
+        <!-- Left Panel: Upload & Input -->
+        <section
+            class="flex-1 flex flex-col p-6 lg:p-10 overflow-y-auto border-r border-slate-200 dark:border-border-dark">
+            <div class="max-w-3xl mx-auto w-full flex flex-col gap-8">
+                <!-- Hero Text -->
+                <div class="space-y-2">
+                    <h1 class="text-4xl lg:text-5xl font-bold tracking-tight">Deepfake Analysis Engine</h1>
+                    <p class="text-slate-500 dark:text-slate-400 text-lg">Upload media to detect digital manipulation
+                        and verify authenticity using our proprietary AI models.</p>
+                </div>
+                <!-- Upload Area -->
+                <div id="upload-prompt">
+                    <div id="upload-zone"
+                        class="group relative flex flex-col items-center justify-center gap-6 rounded-2xl border-2 border-dashed border-slate-300 dark:border-border-dark hover:border-primary dark:hover:border-primary bg-slate-50 dark:bg-card-dark/30 transition-all duration-300 px-6 py-16 cursor-pointer">
+                        <input type="file" id="file-input" class="hidden" accept="image/*,video/*,audio/*" />
+                        <div
+                            class="size-20 rounded-full bg-primary/10 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-primary text-4xl">cloud_upload</span>
+                        </div>
+                        <div class="text-center space-y-1">
+                            <p class="text-xl font-bold">Drag &amp; Drop media here</p>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm">Supports MP4, MOV, JPG, PNG, WAV up to
+                                500MB</p>
+                        </div>
+                        <div class="flex gap-3">
+                            <button id="browse-btn"
+                                class="bg-primary hover:bg-blue-600 text-white font-bold h-10 px-6 rounded-lg text-sm transition-colors shadow-lg shadow-primary/20">
+                                Browse Files
+                            </button>
+                            <button
+                                class="bg-white dark:bg-border-dark hover:bg-slate-100 dark:hover:bg-[#354256] text-slate-700 dark:text-white font-medium h-10 px-4 rounded-lg text-sm transition-colors border border-slate-200 dark:border-transparent">
+                                Enter URL
+                            </button>
+                        </div>
+                        <!-- Security Badge -->
+                        <div
+                            class="absolute bottom-4 flex items-center gap-2 text-xs text-slate-400 dark:text-slate-500">
+                            <span class="material-symbols-outlined text-sm">lock</span>
+                            <span>Files are encrypted and auto-deleted after 24h</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Processing Queue (Hidden initially) -->
+                <div id="processing-section"
+                    class="hidden bg-white dark:bg-card-dark rounded-xl border border-slate-200 dark:border-border-dark p-5 shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="size-10 rounded bg-slate-100 dark:bg-border-dark overflow-hidden relative">
+                                <!-- Thumbnail Placeholder -->
+                                <div class="absolute inset-0 bg-cover bg-center"
+                                    data-alt="Thumbnail of a person's face being analyzed"
+                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCRLnFuzFxj8kSmAC_96W9Bl7z8PRQNgB_-nrBgqq0hT4Jm0nhLkbr2umpoLXOV6mY-xkg1d7jUZzH0wdU1RQ-hMB2aBLB9DyGpk26nZDBN428ha6A7c75cMDm2bBJaR1mECSN_MS-J8-mJqGaGWHiWt5MH-WuLIEYbFre-hYXk4CDx3M0WhfXNzX6krtYAN7sdXxR9qusLuvs90xHmzParWZaptNXK5bnbriYwI0pqW2ARNF4pUCDk2aM_FS_qgOco2dlxu47cDQ6H'); opacity: 0.8;">
+                                </div>
+                            </div>
+                            <div>
+                                <p id="file-name-display" class="font-medium text-sm">interview_clip_04.mp4</p>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Processing...</p>
+                            </div>
+                        </div>
+                        <span id="progress-text" class="text-primary text-sm font-bold">0%</span>
+                    </div>
+                    <div class="h-1.5 w-full bg-slate-100 dark:bg-border-dark rounded-full overflow-hidden">
+                        <div id="progress-bar"
+                            class="h-full bg-primary w-[0%] rounded-full relative overflow-hidden transition-all duration-300">
+                            <div class="absolute inset-0 bg-white/20 w-full animate-[shimmer_2s_infinite]"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Right Panel: Results Dashboard -->
+        <section id="results-section"
+            class="hidden w-full lg:w-[480px] xl:w-[560px] bg-slate-50 dark:bg-[#0d1218] flex flex-col border-l border-slate-200 dark:border-border-dark overflow-y-auto">
+            <div class="p-6 lg:p-8 space-y-8">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-2xl font-bold tracking-tight">Analysis Report</h2>
+                    <button class="text-slate-500 hover:text-primary dark:text-slate-400 transition-colors">
+                        <span class="material-symbols-outlined">download</span>
+                    </button>
+                </div>
+                <!-- Verdict Card -->
+                <div id="verdict-card"
+                    class="bg-red-500/10 border border-red-500/20 rounded-xl p-6 flex items-center justify-between relative overflow-hidden transition-colors duration-500">
+                    <div class="relative z-10">
+                        <p class="text-red-600 dark:text-red-400 font-bold text-sm tracking-wider uppercase mb-1">
+                            Verdict</p>
+                        <h3 id="verdict-title" class="text-3xl font-black text-red-600 dark:text-red-500">FAKE DETECTED
+                        </h3>
+                        <p id="verdict-text" class="text-red-600/80 dark:text-red-400/80 text-sm mt-1">High probability
+                            of manipulation
+                            found.</p>
+                    </div>
+                    <div class="relative z-10 flex flex-col items-center">
+                        <div id="confidence-circle"
+                            class="size-16 rounded-full border-4 border-red-500 flex items-center justify-center bg-background-light dark:bg-background-dark">
+                            <span id="confidence-score"
+                                class="text-lg font-bold text-red-600 dark:text-red-500">98%</span>
+                        </div>
+                        <span
+                            class="text-[10px] font-bold mt-2 uppercase tracking-wide text-slate-500">Confidence</span>
+                    </div>
+                    <!-- Decorative BG -->
+                    <div class="absolute -right-6 -bottom-6 text-red-500/5 rotate-12 pointer-events-none">
+                        <span class="material-symbols-outlined text-[150px]">warning</span>
+                    </div>
+                </div>
+                <!-- Visual Analysis Preview -->
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-bold text-lg">Visual Breakdown</h3>
+                        <span
+                            class="text-xs bg-slate-200 dark:bg-border-dark px-2 py-1 rounded text-slate-600 dark:text-slate-300 font-medium">00:12
+                            / 01:45</span>
+                    </div>
+                    <div
+                        class="relative rounded-xl overflow-hidden aspect-video bg-black group border border-slate-200 dark:border-border-dark">
+                        <!-- Video Placeholder -->
+                        <div id="visual-preview"
+                            class="absolute inset-0 bg-cover bg-center flex items-center justify-center overflow-hidden"
+                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDnpaCmo4VnLJ2n4eeSrrLNEKbhVktsXYPe20tnMfto3E7b3oEd2xRJIW5kQroEhzlucimQyuReNQ-iviZSwSLZsIpBYevJjV2HxI8LIvXGyeOPI7DqDi3_Hr48n75CMbhGmm5fMpxY4dBshaTewHqKI-5xITsdVkj8xZqD82RTp_CZG89jMJjEzEyxNzxNAnbMwGc2tEHZTMFu8JqhGkP9YV-62k7RuVf1WAyCNrA5GmC5BN4tP799m9Oe5aEIy-jvW-DywSmwfWTe')">
+                            <!-- Dynamic IMG or VIDEO will be injected here -->
+                            <!-- Loading Overlay -->
+                            <div id="processing-overlay"
+                                class="absolute inset-0 bg-black/80 z-50 hidden flex flex-col items-center justify-center">
+                                <span
+                                    class="material-symbols-outlined text-4xl text-primary animate-spin mb-2">progress_activity</span>
+                                <span class="text-white font-bold tracking-wider">ANALYZING MEDIA...</span>
+                            </div>
+                        </div>
+                        <!-- Scanning Overlay Effect -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-b from-transparent via-primary/10 to-transparent h-[20%] w-full animate-scan pointer-events-none border-b border-primary/50 shadow-[0_0_15px_rgba(19,109,236,0.5)]">
+                        </div>
+                        <!-- Detection Overlays (Hidden by default) -->
+                        <div id="overlay-lipsync"
+                            class="hidden absolute top-[22%] left-[42%] w-[16%] h-[8%] border-2 border-red-500 rounded bg-red-500/10 shadow-[0_0_15px_rgba(239,68,68,0.5)]">
+                            <div
+                                class="absolute -top-5 left-0 bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-t">
+                                Lip Sync Artifacts
+                            </div>
+                        </div>
+                        <div id="overlay-lighting"
+                            class="hidden absolute top-[20%] left-[30%] w-[40%] h-[30%] border-2 border-orange-500 rounded bg-orange-500/10 shadow-[0_0_15px_rgba(249,115,22,0.5)]">
+                            <div
+                                class="absolute -top-5 right-0 bg-orange-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-t">
+                                Lighting Mismatch
+                            </div>
+                        </div>
+                        <div id="overlay-pixels"
+                            class="hidden absolute bottom-[20%] right-[30%] w-[25%] h-[25%] border-2 border-purple-500 rounded-full bg-purple-500/10 shadow-[0_0_15px_rgba(168,85,247,0.5)]">
+                            <div
+                                class="absolute -bottom-5 right-0 bg-purple-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-b">
+                                Pixel Noise Pattern
+                            </div>
+                        </div>
+                        <!-- Success Overlay (Green) -->
+                        <div id="overlay-verified"
+                            class="hidden absolute top-[15%] left-[30%] w-[40%] h-[60%] border-2 border-green-500 rounded-xl shadow-[0_0_20px_rgba(34,197,94,0.4)]">
+                            <div
+                                class="absolute -top-6 left-1/2 -translate-x-1/2 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-t flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[14px]">verified</span>
+                                Verified Authentic
+                            </div>
+                            <!-- Corner Accents -->
+                            <div class="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-green-500"></div>
+                            <div class="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-green-500"></div>
+                            <div class="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-green-500">
+                            </div>
+                            <div class="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-green-500">
+                            </div>
+                        </div>
+                        <!-- Controls Overlay -->
+                        <div
+                            class="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-black/80 to-transparent flex items-center justify-between opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button class="text-white hover:text-primary"><span
+                                    class="material-symbols-outlined">play_arrow</span></button>
+                            <div class="flex-1 mx-4 h-1 bg-white/30 rounded-full">
+                                <div class="w-[30%] h-full bg-primary rounded-full"></div>
+                            </div>
+                            <button class="text-white hover:text-primary"><span
+                                    class="material-symbols-outlined">fullscreen</span></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Frame Analysis Timeline -->
+                <div class="space-y-4">
+                    <h3 class="font-bold text-lg">Frame Anomalies</h3>
+                    <div class="flex gap-3 overflow-x-auto pb-4 scrollbar-hide">
+                        <!-- Frame Item Active -->
+                        <div class="min-w-[100px] flex flex-col gap-2 group cursor-pointer">
+                            <div class="aspect-video rounded-lg overflow-hidden border-2 border-red-500 relative">
+                                <div class="absolute inset-0 bg-cover bg-center"
+                                    data-alt="Frame at 0:12 showing anomaly"
+                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCymlVpXo0i7-5yFcmkWY-9xCSkx1v_-lcqdNvI1RTheBEa-2vbh-45qabNIQE896hsUZDZV_zm8Bh1niTzhlcyn4OiG9CzRaAo3_koF5P1kW1sitqJHKUjeD-VSOc2W_hQ7dXbt77neG_H2c5tg3trgPD0RnG8yMCrk2wqi3D6hCzvqI70IqqSN9UG02BmnijHeK_E0Qz2fl_kaJHqdXcpSc0Puqk32KNWVbmsLHb0zWmWP96zpWgSSLcgRbk4chnmwlnhbcplky58')">
+                                </div>
+                                <div class="absolute inset-0 bg-red-500/20"></div>
+                            </div>
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="font-bold text-red-500">00:12</span>
+                                <span class="text-slate-400">Lip Sync</span>
+                            </div>
+                        </div>
+                        <!-- Frame Item -->
+                        <div
+                            class="min-w-[100px] flex flex-col gap-2 group cursor-pointer opacity-60 hover:opacity-100 transition-opacity">
+                            <div class="aspect-video rounded-lg overflow-hidden border border-slate-700 relative">
+                                <div class="absolute inset-0 bg-cover bg-center" data-alt="Frame at 0:15"
+                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB6Q0FtXU9sRX_aKQKq-mVIFc2jafPH1VqOJ8snw1QidACGw2NoaQd5hgzjvCS28nslSUWPK0gYAoatL2OpWe4JPMzRXvEIz_QcWo53PK2QQbl_VaoFfoLhJmiocM5yZ_E09pbFQh0RclExMjpW6KFCxpszXf8H8Yr1unTFhxggQpSmvn_PspB9kWvPf3tQvsypfPWkkcn1LPV3EGq3HJPAVggrJDm6H4jUxTz2BTrYsxKo02xDLlDCQ11Ef6PCm-CDburCgpRZhIxM')">
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="font-bold text-slate-400">00:15</span>
+                                <span class="text-slate-500">Artifacts</span>
+                            </div>
+                        </div>
+                        <!-- Frame Item -->
+                        <div
+                            class="min-w-[100px] flex flex-col gap-2 group cursor-pointer opacity-60 hover:opacity-100 transition-opacity">
+                            <div class="aspect-video rounded-lg overflow-hidden border border-slate-700 relative">
+                                <div class="absolute inset-0 bg-cover bg-center" data-alt="Frame at 0:45"
+                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBo2z-Xl_iGNj1vtaRXOmLcKrp6weZNVbATa7teQ6iuA2vYp6yE9wE0CBoyTjLgd2MVRETX3FffA-aEOmJmXvRR03-YcBo5I616x64JWOlik1qz4_rdKwzyOd_VhhVXCBpSUL17DXA97fYvIVtFhFko80L8VvCnYrcmdm4dpqeI1boxHK6PcZUspv5FSdIBvk5TfF6KKxGWJle3y3y6CxErK4QOe6Qwrein0VSxkfJetOUuL3IX7MzRNv9ANR0iqa5401NysxrxRyS9')">
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="font-bold text-slate-400">00:45</span>
+                                <span class="text-slate-500">Lighting</span>
+                            </div>
+                        </div>
+                        <!-- Frame Item Safe -->
+                        <div
+                            class="min-w-[100px] flex flex-col gap-2 group cursor-pointer opacity-40 hover:opacity-80 transition-opacity">
+                            <div
+                                class="aspect-video rounded-lg overflow-hidden border border-slate-800 bg-slate-800 relative flex items-center justify-center">
+                                <span class="material-symbols-outlined text-slate-600">image</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="font-bold text-slate-500">01:02</span>
+                                <span class="text-slate-600">Clean</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Detailed Metrics -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div
+                        class="bg-white dark:bg-card-dark p-4 rounded-xl border border-slate-200 dark:border-border-dark">
+                        <div class="flex items-center gap-2 mb-2 text-slate-500 dark:text-slate-400">
+                            <span class="material-symbols-outlined text-lg">graphic_eq</span>
+                            <span class="text-xs font-bold uppercase tracking-wider">Audio Consistency</span>
+                        </div>
+                        <p id="risk-audio-label" class="text-2xl font-bold text-yellow-500">Medium Risk</p>
+                        <div class="w-full bg-slate-100 dark:bg-border-dark h-1.5 rounded-full mt-3">
+                            <div id="risk-audio-bar" class="bg-yellow-500 h-1.5 rounded-full" style="width: 65%"></div>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-card-dark p-4 rounded-xl border border-slate-200 dark:border-border-dark">
+                        <div class="flex items-center gap-2 mb-2 text-slate-500 dark:text-slate-400">
+                            <span class="material-symbols-outlined text-lg">face</span>
+                            <span class="text-xs font-bold uppercase tracking-wider">Face Blending</span>
+                        </div>
+                        <p id="risk-face-label" class="text-2xl font-bold text-red-500">High Risk</p>
+                        <div class="w-full bg-slate-100 dark:bg-border-dark h-1.5 rounded-full mt-3">
+                            <div id="risk-face-bar" class="bg-red-500 h-1.5 rounded-full" style="width: 92%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-4">
+                    <button
+                        class="w-full bg-primary hover:bg-blue-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg shadow-primary/25 transition-all flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined">assignment</span>
+                        Export Full Forensic Report
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="assets/js/media-store.js"></script>
+    <script src="assets/js/analysis.js"></script>
+</body>
+
+</html>
