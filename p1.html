@@ -115,6 +115,7 @@
         <!-- Left Panel: Upload & Input -->
         <section
             class="flex-1 flex flex-col p-6 lg:p-10 lg:overflow-y-auto border-r border-slate-200 dark:border-border-dark min-h-[500px]">
+            <input type="file" id="file-input" class="hidden" accept="image/*,video/*,audio/*" />
             <div class="max-w-3xl mx-auto w-full flex flex-col gap-8">
                 <!-- Hero Text -->
                 <div class="space-y-2">
@@ -127,7 +128,7 @@
                 <div id="upload-prompt">
                     <div id="upload-zone"
                         class="group relative flex flex-col items-center justify-center gap-6 rounded-2xl border-2 border-dashed border-slate-300 dark:border-border-dark hover:border-primary dark:hover:border-primary bg-slate-50 dark:bg-card-dark/30 transition-all duration-300 px-6 py-12 md:py-16 cursor-pointer active:scale-95">
-                        <input type="file" id="file-input" class="hidden" accept="image/*,video/*,audio/*" />
+
                         <div
                             class="size-16 md:size-20 rounded-full bg-primary/10 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
                             <span
@@ -140,10 +141,10 @@
                                 500MB</p>
                         </div>
                         <div class="flex gap-3">
-                            <button id="browse-btn"
-                                class="bg-primary hover:bg-blue-600 text-white font-bold h-10 px-6 rounded-lg text-sm transition-colors shadow-lg shadow-primary/20">
+                            <label for="file-input" id="browse-btn"
+                                class="bg-primary hover:bg-blue-600 text-white font-bold h-10 px-6 rounded-lg text-sm transition-colors shadow-lg shadow-primary/20 flex items-center justify-center cursor-pointer">
                                 Browse Files
-                            </button>
+                            </label>
                             <button
                                 class="bg-white dark:bg-border-dark hover:bg-slate-100 dark:hover:bg-[#354256] text-slate-700 dark:text-white font-medium h-10 px-4 rounded-lg text-sm transition-colors border border-slate-200 dark:border-transparent z-10"
                                 onclick="event.stopPropagation()">
